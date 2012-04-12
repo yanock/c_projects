@@ -1,0 +1,16 @@
+#Make file written by boby Thomas Pazheparampil
+#21-5-2006
+INCLUDES = -I ./include
+ 
+CC = g++ -g -Wno-deprecated
+CFLAGS = -c $(INCLUDES)
+
+all : cmain
+ 
+cmain : cmain.o
+            $(CC) cmain.o -o cmain 
+cmain.o : cmain.cpp
+            $(CC) $(CFLAGS) cmain.cpp 
+ 
+clean :
+            rm -f *.o

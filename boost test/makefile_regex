@@ -1,0 +1,14 @@
+    # master makefile resides in the project dir
+    TRGTS = utilities project
+    # path to utilities dir
+    UTILS = ~/utilities
+    all: $(TRGTS)
+    utilities:
+    cd $(UTILS) ; make
+    #This is where I seem to be going wrong.
+    project: proj.o $(UTILS)/utility.o
+    g++ -ggdb -std=c++98 -I/usr/include/ proj.o -L /usr/lib -lboost_regex $(UTILS)/utility.o -o project
+    proj.o: proj.cpp
+    g++ -ggdb -c proj.cpp
+    clean:
+    rm proj.o project

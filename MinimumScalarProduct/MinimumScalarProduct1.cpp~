@@ -1,0 +1,44 @@
+//============================================================================
+// Name        : StoreCredit.cpp
+// Author      : yanock
+// Version     :
+// Copyright   : Your copyright notice
+// Description : Hello World in C++, Ansi-style
+//============================================================================
+
+#include <iostream>
+#include <QFile>
+#include <QIODevice>
+#include <QTextStream>
+#include <QString>
+
+
+
+using namespace std;
+
+clock_t start=clock();
+
+int main() {
+	//freopen("/yanock/Desktop/storeCredit","r",stdin);
+	//freopen("/yanock/Desktop/a1.out","w",stdout);
+
+     QFile file("in.txt");
+     if (!file.open(QIODevice::ReadOnly | QIODevice::Text))
+         return 0;
+ 	QFile file2("out.txt");
+     if (!file2.open(QIODevice::WriteOnly | QIODevice::Text))
+         return 0;
+	QTextStream out(&file);
+	QTextStream in(&file);
+
+     
+     
+	 QString line = in.readLine();
+	 
+     
+
+
+
+
+	return 0;
+}
