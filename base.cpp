@@ -16,6 +16,7 @@
 #include <QDebug>
 #include <QByteArray>
 #include <QList>
+#include <QHash>
 #include <time.h>
 #include <string>
 #undef main
@@ -47,6 +48,8 @@ int main() {
 	QTextStream out(&file2);
 	QTextStream in(&file);
 
+
+	QHash<QString, int> hash;
 	QStringList  list1 = in.readLine().split(" ");
 	int test_case = list1[2].toInt();
 
