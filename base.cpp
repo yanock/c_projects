@@ -33,10 +33,10 @@ void displayList(QStringList list, string ds)
 	cout << str.toStdString() <<endl;
 	
 }
-
+//CONFIG += console
 int main() {
 
-	QString filename = "A-large-practice";
+	QString filename = "test";
 	QFile file(filename+".in");
 	if (!file.open(QIODevice::ReadOnly | QIODevice::Text))
 	 return 0;
@@ -47,12 +47,12 @@ int main() {
 	QTextStream out(&file2);
 	QTextStream in(&file);
 
-	QStringList  list1 = in.readLine().split(" ");
-	int test_case = list1[2].toInt();
+	
+	int test_case = in.readLine().toInt();
 
 	for(int i=0; i < test_case; i++)
 	{
-		
+		QStringList  list1 = in.readLine().split(" ");
 		cout << "Case #"<< i+1 << ": " <<  endl;
 		out << "Case #"<< i+1 << ": " <<  endl;
 	}
