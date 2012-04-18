@@ -1,20 +1,31 @@
 Case #1:
-""
-""
-""
-""
-""
-:(
+"V"
+" D"
+"Q"
+" F"
+"S"
+"B"
 Case #2:
-""
-:(
+"A"
+"C"
 Case #3:
-""
-""
-:(
+"AAAAAAAA"
+"BBB"
+"BA"
 Case #4:
-""
-""
 :(
+:(
+"RF"
 Case #5:
 ""
+Case #6:
+:(
+"ABBBA"
+"BBBB"
+:(
+"AABA"
+"ABAA"
+"ABBA"
+"AAA"
+"BBAAB"
+"BBABB"

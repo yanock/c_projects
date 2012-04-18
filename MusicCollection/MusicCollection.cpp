@@ -28,7 +28,7 @@ void displayList(QStringList list, string ds)
 {
 	QString str = "";
 	for(int l=0;l<list.size(); l++)
-		str.append(list[l]);
+		str.append(list[l]+" ");
 	cout << ds << " : " << endl;
 	cout << str.toStdString() <<endl;
 }
@@ -38,17 +38,24 @@ void displayList(QStringList list, string ds)
 
 int main() {
 	
-	QString filename = "test";
+	QString filename = "B-small-practice1";
+	//QString filename = "test";
 	QFile file(filename+".in");
 	if (!file.open(QIODevice::ReadOnly | QIODevice::Text))
 	 return 0;
-		QFile file2(filename+".out");
+	 
+	QFile file2(filename+".out");
 	if (!file2.open(QIODevice::WriteOnly | QIODevice::Text))
 	 return 0;
        
 	QTextStream out(&file2);
 	QTextStream in(&file);
 
+	QFile file3(filename+".liste");
+	if (!file3.open(QIODevice::WriteOnly | QIODevice::Text))
+	 return 0;
+       
+	QTextStream f3(&file3);
 	
 	int test_case = in.readLine().toInt();
 
@@ -57,49 +64,77 @@ int main() {
 		int nbSong = in.readLine().toInt();
 		QStringList  songList;
 		for(int j=0; j < nbSong; j++) // on crée notre liste
-			songList.append(in.readLine());
-		
+			songList.append(in.readLine().toUpper());
+				
 		cout << "Case #"<< i+1 << ":" <<  endl;
 		out << "Case #"<< i+1 << ":" <<  endl;
-		
-		for(int j=0; j < nbSong; j++)  //on cherche le nombre d'occurences possible par chanson
+		if(nbSong == 1) //si elle est seule
 		{
-			int tailleSubstr = 1;
-			bool ok = true;
-			QString mot;
-			QStringList result;
-			if(nbSong == 1) //si elle est seule
+			cout << "\"\"" << endl;
+			out << "\"\"" << endl;
+		}
+		else
+		{
+			for(int j=0; j < nbSong; j++)  //on cherche le nombre d'occurences possible par chanson
 			{
-				cout << "\"\"" << endl;
-				out << "\"\"" << endl;
-			}
-			else
-			{
-				while (tailleSubstr <songList[j].size() && ok)
+				int tailleSubstr = 1;
+				bool ok = true;
+				QString mot;
+				QStringList result;
+				
+				while (tailleSubstr <= songList[j].size() && ok)
 				{
-					mot = QString();
-					mot.append(".*");
-					mot.append(".*"); //substr
-					mot.append(".*");
-					
-					QRegExp rx(mot);
-					
-					for(int k = j+1; k < nbSong; k++)
+					for(int l=0; l < songList[j].size()-tailleSubstr+1;l++)
 					{
-						if(rx.indexIn(songList[k]) != -1)
-							break;
-						else
-							
 						
+						QString sub = songList[j].mid(l, tailleSubstr);
+						
+						mot = QString();
+						mot.append(".*");
+						mot.append(sub); //lower
+						mot.append(".*");
+						
+						QRegExp rx(mot);
+						bool ajouter = true;
+						for(int k = 0; k < nbSong; k++)
+						{	
+							
+							if(songList[k].compare(songList[j]) != 0)
+							{
+								if(rx.exactMatch(songList[k])) //lower
+								{
+									//cout << songList[j].toStdString() << " " << songList[k].toStdString() << " " << mot.toStdString() << endl;
+									ajouter = false;
+								}
+							}
+							
+							
+						}
+						if(ajouter)
+								result.append(sub);
+
 					}
-					if(result == 0)
-						ok = false;
-					compteur++;
+					if(!result.isEmpty())
+							ok = false;
+					tailleSubstr++;
 				}
-				if(ok)
+				
+				result.sort();
+				if(!result.isEmpty() && result.size()>1)
 				{
-					cout << "\"" << mot.toStdString() <<  "\"" << endl;
-					out << "\"" << mot << "\"" << endl;
+					cout << endl;
+					displayList(result, "result");
+					cout << endl;
+					
+					for(int l=0;l<result.size(); l++)
+						f3 << result[l] << endl;
+					f3 << endl;
+					
+				}
+				if(!result.isEmpty())
+				{
+					cout << "\"" << result[0].toUpper().toStdString() <<  "\"" << endl;
+					out << "\"" << result[0].toUpper() << "\"" << endl;
 				}
 				else
 				{
@@ -107,10 +142,7 @@ int main() {
 					out << ":(" << endl;
 				}
 			}
-			
-			
 		}
-
 	}
 
 	
