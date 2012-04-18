@@ -16,6 +16,7 @@
 #include <QDebug>
 #include <QByteArray>
 #include <QList>
+#include <QHash>
 #include <time.h>
 #include <string>
 #undef main
@@ -49,6 +50,7 @@ int main() {
 
 	
 	int test_case = in.readLine().toInt();
+	//QHash<QString, int> hash;
 
 	for(int i=0; i < test_case; i++)
 	{
